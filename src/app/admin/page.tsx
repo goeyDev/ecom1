@@ -17,7 +17,7 @@ import {
   eachWeekOfInterval,
   eachYearOfInterval,
   endOfWeek,
-  interval,
+  // interval,
   max,
   min,
   startOfDay,
@@ -295,11 +295,22 @@ function DashboardCard({ title, subtitle, body }: DashboardCardProps) {
   )
 }
 
+
+// import { eachDayOfInterval } from 'date-fns'
+
+// if (days < 30) {
+//   return {
+//     array: eachDayOfInterval({ start: startDate, end: endDate }),
+//     format: formatDate,
+//   }
+// }
+
 function getChartDateArray(startDate: Date, endDate: Date = new Date()) {
   const days = differenceInDays(endDate, startDate)
   if (days < 30) {
     return {
-      array: eachDayOfInterval(interval(startDate, endDate)),
+      // array: eachDayOfInterval(interval(startDate, endDate)),
+      array: eachDayOfInterval({ start: startDate, end: endDate }),
       format: formatDate,
     }
   }
@@ -307,7 +318,8 @@ function getChartDateArray(startDate: Date, endDate: Date = new Date()) {
   const weeks = differenceInWeeks(endDate, startDate)
   if (weeks < 30) {
     return {
-      array: eachWeekOfInterval(interval(startDate, endDate)),
+      // array: eachWeekOfInterval(interval(startDate, endDate)),
+      array: eachWeekOfInterval({ start: startDate, end: endDate }),
       format: (date: Date) => {
         const start = max([startOfWeek(date), startDate])
         const end = min([endOfWeek(date), endDate])
@@ -320,14 +332,16 @@ function getChartDateArray(startDate: Date, endDate: Date = new Date()) {
   const months = differenceInMonths(endDate, startDate)
   if (months < 30) {
     return {
-      array: eachMonthOfInterval(interval(startDate, endDate)),
+      // array: eachMonthOfInterval(interval(startDate, endDate)),
+      array: eachMonthOfInterval({ start: startDate, end: endDate }),
       format: new Intl.DateTimeFormat("en", { month: "long", year: "numeric" })
         .format,
     }
   }
 
   return {
-    array: eachYearOfInterval(interval(startDate, endDate)),
+    // array: eachYearOfInterval(interval(startDate, endDate)),
+    array: eachYearOfInterval({ start: startDate, end: endDate }),
     format: new Intl.DateTimeFormat("en", { year: "numeric" }).format,
   }
 }

@@ -42,6 +42,8 @@ export function ChartCard({
   })
 
   function setRange(range: keyof typeof RANGE_OPTIONS | DateRange) {
+    //const searchParams = useSearchParams(); // This gives you ReadonlyURLSearchParams
+    // const params = new URLSearchParams(searchParams.toString());
     const params = new URLSearchParams(searchParams)
     if (typeof range === "string") {
       params.set(queryKey, range)
